@@ -16,21 +16,21 @@
     <filter-container>
       <template #left>
         <div>
-          <input type="radio" id="type-movie" name="type" value="movie" />
+          <input type="radio" id="type-movie" name="type" value="movie" v-model="mediaType" />
           <label for="type-movie">Movie</label>
-          <input type="radio" id="type-book" name="type" value="book" />
+          <input type="radio" id="type-book" name="type" value="book" v-model="mediaType" />
           <label for="type-book">Books</label>
         </div>
       </template>
       <template #right>
-        <button>clear filter</button>
+        <button @click="mediaType = null">clear filter</button>
       </template>
     </filter-container>
   
     <!-- grid items -->
     <div class="grid-container">
       <card-display
-        v-for="(item, index) in allData"
+        v-for="(item, index) in filteredData"
         :key="index"
         v-bind="item"
       />
@@ -51,15 +51,27 @@ export default {
   },
   data: () => ({
     allData: [],
+    mediaType: null,
   }),
   mounted() {
     this.fetch()
   },
+  computed: {
+    filteredData() {
+      if (this.mediaType) {
+        return this.allData.filter(({type}) => type === this.mediaType)
+      }
+      return this.allData
+    }
+  },
   methods: {
     async fetch() {
       const data = await fetchData();
-      if (!data) return
-      this.allData = data;
+      if (!data) {
+        console.warn('Oops, something went wrong when fetching the data');
+        return
+      }
+      this.allData = data.sort((a, b) => a.title.localeCompare(b.title));
     }
   }
 };
