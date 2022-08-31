@@ -23,7 +23,7 @@
         </div>
       </template>
       <template #right>
-        <button @click="mediaType = null">clear filter</button>
+        <button @click="clearFilters">clear filter</button>
       </template>
     </filter-container>
   
@@ -107,6 +107,13 @@ export default {
     },
     addFilter(type, values) {
       this.filters[type] = values
+    },
+    clearFilters() {
+      this.mediaType = null
+      this.filters = {
+        year: [],
+        genre: []
+      }
     }
   }
 };
