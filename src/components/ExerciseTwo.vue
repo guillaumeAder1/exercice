@@ -8,7 +8,7 @@
       </template>
       <template #right>
         <div class="searchbox">
-          <input type="text" />
+          <input type="text" v-model="searchByTitle" />
         </div>
       </template>
     </filter-container>
@@ -57,7 +57,8 @@ export default {
     filters: {
       genre: [],
       year: []
-    }
+    },
+    searchByTitle: ''
   }),
   mounted() {
     this.fetch()
@@ -77,6 +78,10 @@ export default {
       if (this.filters.year.length) {
         const currentSet = filtered?.length ? filtered : this.allData
         filtered = currentSet.filter(({ year }) => this.filters.year.includes(year))
+      }
+      if (this.searchByTitle) {
+        const currentSet = filtered?.length ? filtered : this.allData
+        filtered = currentSet.filter(({ title }) => title.toLowerCase().includes(this.searchByTitle.toLowerCase()))
       }
 
       return filtered?.length ? filtered : this.allData
