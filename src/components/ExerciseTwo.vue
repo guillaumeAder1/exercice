@@ -29,61 +29,38 @@
   
     <!-- grid items -->
     <div class="grid-container">
-      <div class="card">
-        <div class="img-container">
-          <img
-            src="https://ia.media-imdb.com/images/M/MV5BMTc0NDQzNTA2Ml5BMl5BanBnXkFtZTcwNzI2OTQzMw@@._V1_.jpg"
-            alt="..."
-          />
-        </div>
-        <div class="title">perdator</div>
-        <div class="meta">2012 comedie</div>
-      </div>
-      <div class="card">
-        <div class="img-container">
-          <img
-            src="https://ia.media-imdb.com/images/M/MV5BMTc0NDQzNTA2Ml5BMl5BanBnXkFtZTcwNzI2OTQzMw@@._V1_.jpg"
-            alt="..."
-          />
-        </div>
-        <div class="title">perdator</div>
-        <div class="meta">
-          2012 comedie Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Accusamus necessitatibus harum omnis ea quis, asperiores eos provident
-          blanditiis est nam quas neque! Nisi nihil vero totam, ipsum provident
-          enim temporibus.
-        </div>
-      </div>
-      <div class="card">
-        <div class="img-container">
-          <img
-            src="https://ia.media-imdb.com/images/M/MV5BMTc0NDQzNTA2Ml5BMl5BanBnXkFtZTcwNzI2OTQzMw@@._V1_.jpg"
-            alt="..."
-          />
-        </div>
-        <div class="title">perdator</div>
-        <div class="meta">2012 comedie</div>
-      </div>
-      <div class="card">
-        <div class="img-container">
-          <img
-            src="https://ia.media-imdb.com/images/M/MV5BMTc0NDQzNTA2Ml5BMl5BanBnXkFtZTcwNzI2OTQzMw@@._V1_.jpg"
-            alt="..."
-          />
-        </div>
-        <div class="title">perdator</div>
-        <div class="meta">2012 comedie</div>
-      </div>
+      <card-display
+        v-for="(item, index) in allData"
+        :key="index"
+        v-bind="item"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import FilterContainer from './FilterContainer.vue'
+import CardDisplay from './Card.vue'
+import { fetchData } from './api'
+
 export default {
   name: 'ExerciseTwo',
   components: {
+    CardDisplay,
     FilterContainer
+  },
+  data: () => ({
+    allData: [],
+  }),
+  mounted() {
+    this.fetch()
+  },
+  methods: {
+    async fetch() {
+      const data = await fetchData();
+      if (!data) return
+      this.allData = data;
+    }
   }
 };
 </script>
