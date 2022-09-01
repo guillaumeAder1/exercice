@@ -17,7 +17,7 @@
       <template #left>
         <div>
           <input type="radio" id="type-movie" name="type" value="movie" v-model="mediaType" />
-          <label for="type-movie">Movie</label>
+          <label for="type-movie">Movies</label>
         </div>
         <div>
           <input type="radio" id="type-book" name="type" value="book" v-model="mediaType" />
@@ -25,7 +25,7 @@
         </div>
       </template>
       <template #right>
-        <button @click="clearFilters" class="btn-link">clear filter</button>
+        <button @click="clearFilters" class="btn-link">clear filters</button>
       </template>
     </filter-container>
   
