@@ -142,7 +142,6 @@ export default {
 
 <style lang="styl">
 #exercise2
-
   width: 100vw
   display: flex
 
@@ -159,7 +158,6 @@ export default {
         display: flex
 
       .left-container
-
         .dropdown
           border: 1px solid var(--grey-light)
 
@@ -167,37 +165,4 @@ export default {
       display: flex
       flex-wrap: wrap
       border-top: 1px solid var(--grey-light)
-
-      .card
-        flex: 0 0 33.3%
-        padding: 10px
-
-        img
-          width: 100%
-        .title
-          font-size: 20px
-        .meta
-          font-size: 14px
-          text-transform: capitalize
-
-label
-  margin-left: 10px
-  font-weight: 700
-
-.padded
-  padding: 15px
-
-.gap
-  gap: 10px
-
-.btn-link
-  color: var(--blue-link)
-  text-transform: uppercase
-  text-decoration: underline
-  background: none
-  border: none
-  font-weight: 700
-  cursor: pointer
-  
-
 </style>

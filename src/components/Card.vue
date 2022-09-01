@@ -25,7 +25,7 @@ export default {
     },
     year: {
       type: [String, Number],
-      default: 'No name'
+      default: 'No year'
     },
     genre: {
       type: Array,
@@ -47,6 +47,16 @@ export default {
 }
 </script>
 
-<style>
+<style lang="styl">
+.card
+  flex: 0 0 33.3%
+  padding: 10px
 
+  img
+    width: 100%
+  .title
+    font-size: 20px
+  .meta
+    font-size: 14px
+    text-transform: capitalize
 </style>
