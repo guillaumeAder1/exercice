@@ -3,6 +3,7 @@
   --grey-light: #DEDEDE;
   --grey-button-bg: #F9F9F9;
   --grey-font: #888888;
+  --blue-link: #0A91B9;
 }
 
 *, *::before, *::after {
@@ -23,9 +24,12 @@ body {
 }
 
 input[type='text'],
-input[type='radio'],
 input[type='checkbox'] {
   height: 100%;
   border: 1px solid var(--grey-light);
+  padding: 3px 10px;
+  color: var(--grey-font);
 }
-
+label{
+  color: var(--grey-font);
+}

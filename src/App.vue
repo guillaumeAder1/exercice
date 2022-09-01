@@ -18,7 +18,7 @@
     <h2>Exercise 2 - Filterable Content</h2>
   </div>
 
-  <div id="exercice2">
+  <div id="exercise2">
     <exercise-two />
   </div>
 
@@ -38,5 +38,4 @@ export default {
 <style lang="styl">
 @import './styles/index.css';
 @import './styles/normalize.css';
-@import './styles/ex2.styl';
 </style>

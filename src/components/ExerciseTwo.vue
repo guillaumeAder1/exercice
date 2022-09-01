@@ -18,12 +18,14 @@
         <div>
           <input type="radio" id="type-movie" name="type" value="movie" v-model="mediaType" />
           <label for="type-movie">Movie</label>
+        </div>
+        <div>
           <input type="radio" id="type-book" name="type" value="book" v-model="mediaType" />
           <label for="type-book">Books</label>
         </div>
       </template>
       <template #right>
-        <button @click="clearFilters">clear filter</button>
+        <button @click="clearFilters" class="btn-link">clear filter</button>
       </template>
     </filter-container>
   
@@ -67,7 +69,7 @@ export default {
     filteredData() {
       let filtered;
       if (this.mediaType) {
-        filtered = this.allData.filter(({type}) => type === this.mediaType)
+        filtered = this.allData.filter(({ type }) => type === this.mediaType)
       }
       if (this.filters.genre.length) {
         const currentSet = filtered?.length ? filtered : this.allData
@@ -124,5 +126,63 @@ export default {
 };
 </script>
 
-<style>
+<style lang="styl">
+#exercise2
+
+  width: 100vw
+  display: flex
+
+  .content
+    border: 1px solid var(--grey-light)
+    width: 75%
+    margin: auto
+
+    .filters
+      display: flex
+      justify-content: space-between
+
+      > div
+        display: flex
+
+      .left-container
+
+        .dropdown
+          border: 1px solid grey
+
+    .grid-container
+      display: flex
+      flex-wrap: wrap
+
+      .card
+        flex: 0 0 33.3%
+        padding: 10px
+
+        img
+          width: 100%
+        .title
+          font-size: 20px
+        .meta
+          font-size: 14px
+          text-transform: capitalize
+
+label
+  margin-left: 10px
+  font-weight: 700
+
+.padded
+  padding: 15px
+
+.gap
+  gap: 10px
+
+.btn-link
+  color: var(--blue-link)
+  text-transform: uppercase
+  text-decoration: underline
+  background: none
+  border: none
+  font-weight: 700
+  cursor: pointer
+  
+
 </style>
