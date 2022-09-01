@@ -7,9 +7,9 @@
       <li v-for="(option, index) in options" :key="index">
         <input
           type="checkbox"
+          v-model="checked"
           :value="option"
           :id="option"
-          v-model="checked"
         />
         <label :for="option">{{ option }}</label>
       </li> 
@@ -30,7 +30,7 @@ export default {
     options: {
       type: Array,
       required: true
-    }
+    },
   },
   data: () => ({
     display: false,
@@ -40,6 +40,9 @@ export default {
     toggle() {
       this.display = !this.display
     },
+    clear() {
+      this.checked = []
+    }
   },
   watch: {
     checked(values) {

@@ -3,8 +3,8 @@
     <!-- filter 1 -->
     <filter-container>
       <template #left>
-        <drop-down name="Genre" :options="genreOptions" @on-select="val => addFilter('genre', val)"/>
-        <drop-down name="Year" :options="yearOptions"  @on-select="val => addFilter('year', val)"/>
+        <drop-down ref="genre-dd" name="Genre" :options="genreOptions" @on-select="val => addFilter('genre', val)"/>
+        <drop-down ref="year-dd" name="Year" :options="yearOptions"  @on-select="val => addFilter('year', val)"/>
       </template>
       <template #right>
         <div class="searchbox">
@@ -31,11 +31,18 @@
   
     <!-- grid items -->
     <div class="grid-container">
-      <card-display
-        v-for="(item, index) in filteredData"
-        :key="index"
-        v-bind="item"
-      />
+      <template v-if="filteredData.length">
+        <card-display
+          v-for="(item, index) in filteredData"
+          :key="index"
+          v-bind="item"
+        />
+      </template>
+      <div v-else>
+        <p>
+          Sorry, no item found
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -72,21 +79,23 @@ export default {
         filtered = this.allData.filter(({ type }) => type === this.mediaType)
       }
       if (this.filters.genre.length) {
-        const currentSet = filtered?.length ? filtered : this.allData
+        const currentSet = this.hasResults(filtered)
         filtered = currentSet
           .filter(({ genre }) => genre
             .some(currentGenre => this.filters.genre.includes(currentGenre)))
       }
       if (this.filters.year.length) {
-        const currentSet = filtered?.length ? filtered : this.allData
+        const currentSet = this.hasResults(filtered)
         filtered = currentSet.filter(({ year }) => this.filters.year.includes(year))
       }
       if (this.searchByTitle) {
-        const currentSet = filtered?.length ? filtered : this.allData
+        const currentSet = this.hasResults(filtered)
         filtered = currentSet.filter(({ title }) => title.toLowerCase().includes(this.searchByTitle.toLowerCase()))
       }
-
-      return filtered?.length ? filtered : this.allData
+      return this.hasFilterSelected ? filtered : this.allData
+    },
+    hasFilterSelected() {
+      return this.mediaType || this.filters.genre.length || this.filters.year.length || this.searchByTitle
     },
     genreOptions() {
       const uniqueGenres = this.allData.reduce((acc, { genre }) => {
@@ -100,7 +109,7 @@ export default {
         acc.add(year)
         return acc;
       }, new Set())
-      return [...uniqueYears]
+      return [...uniqueYears].sort()
     },
   },
   methods: {
@@ -112,6 +121,9 @@ export default {
       }
       this.allData = data.sort((a, b) => a.title.localeCompare(b.title));
     },
+    hasResults(filteredData) {
+      return filteredData?.length ? filteredData : this.allData;
+    },
     addFilter(type, values) {
       this.filters[type] = values
     },
@@ -121,6 +133,8 @@ export default {
         year: [],
         genre: []
       }
+      this.$refs['genre-dd'].clear()
+      this.$refs['year-dd'].clear()
     }
   }
 };
@@ -147,11 +161,12 @@ export default {
       .left-container
 
         .dropdown
-          border: 1px solid grey
+          border: 1px solid var(--grey-light)
 
     .grid-container
       display: flex
       flex-wrap: wrap
+      border-top: 1px solid var(--grey-light)
 
       .card
         flex: 0 0 33.3%

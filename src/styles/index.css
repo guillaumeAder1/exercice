@@ -13,6 +13,7 @@
 body {
   margin: 0;
   font-family: 'Roboto', 'Montserrat', sans-serif;
+  color: var(--grey-font);
 }
 
 .exercise-header {
