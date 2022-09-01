@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dropdown-container">
     <div class="dropdown-label" @click="toggle">
       {{ name }}
     </div>
@@ -8,11 +8,13 @@
         <input
           type="checkbox"
           :value="option"
+          :id="option"
           v-model="checked"
         />
         <label :for="option">{{ option }}</label>
       </li> 
     </ul>
+    <div v-if="display" @click="display = false" class="overlay"></div>
   </div>
 </template>
 
@@ -37,7 +39,7 @@ export default {
   methods: {
     toggle() {
       this.display = !this.display
-    }
+    },
   },
   watch: {
     checked(values) {
@@ -48,18 +50,41 @@ export default {
 </script>
 
 <style lang="styl" scoped>
-.dropdown-label
-  background: red
 
-ul
-  position: absolute
-  background: var(--grey-light)
-  list-style: none
-  margin: 0
-  padding: 0
+.overlay
+  position absolute
+  top 0
+  left 0
+  width 100%
+  height 100%
+  z-index 1
 
-  li
-    padding 3px 10px
+.dropdown-container
+  font-weight: 700
+  text-transform: uppercase
+  
+
+  .dropdown-label
+    background: var(--grey-button-bg)
+    padding: 7px 10px
+    border-bottom: 2px solid var(--grey-light)
+    color: var(--grey-font)
+
+  ul
+    position: absolute
+    border: 1px solid var(--grey-light)
+    margin: 10px 0
+    padding: 0
+    list-style: none
+    background-color: white
+    z-index: 2
+
+    li
+      padding 10px 15px
+      color: var(--grey-font)
+
+      label
+        margin-left: 10px
       
 
 </style>

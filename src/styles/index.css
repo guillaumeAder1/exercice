@@ -1,6 +1,8 @@
 
 :root {
   --grey-light: #DEDEDE;
+  --grey-button-bg: #F9F9F9;
+  --grey-font: #888888;
 }
 
 *, *::before, *::after {
@@ -19,3 +21,11 @@ body {
   color: #fff;
   background-color: #00a4bd;
 }
+
+input[type='text'],
+input[type='radio'],
+input[type='checkbox'] {
+  height: 100%;
+  border: 1px solid var(--grey-light);
+}
+
